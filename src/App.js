@@ -42,7 +42,6 @@ updateBook=(book, shelf)=>{
 
      
   render() {
-   	console.log(this.state.books);
 	const {books} = this.state;
     return (
       <div className="app">

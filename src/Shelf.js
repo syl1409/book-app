@@ -15,7 +15,7 @@ const Shelf =(props)=>{
                     <ol className="books-grid">
       
       	{filterBooks.map((book)=>(  
-                <BookItem book={book} key={book.id} shelf={book.shelf} update={update}/>
+                <BookItem book={book} key={book.id} update={update}/>
                      
         ))}
 

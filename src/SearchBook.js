@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 // import the API
 import * as BooksAPI from './BooksAPI';
 
-import BookItem from './BookItem'
+import BookItem from './BookItem';
 
 class SearchBook extends Component {
   
@@ -16,13 +16,6 @@ class SearchBook extends Component {
     stateOfSearch:'not searching'
   }
 
-findShelf(id){
-	BooksAPI.get(id).then((book)=>{
-      console.log(book);
-      return book.shelf;
-    })
-}
-
 updateQuery=(query)=>{
     this.setState((oldState)=>({
      	query:query.trim(),
@@ -31,7 +24,6 @@ updateQuery=(query)=>{
     BooksAPI.search(query,8)
   	.then((books)=>{
       let state;
-      console.log('result books',books);
       if(books.constructor === Array){
       	state = 'search found';
       }
@@ -57,7 +49,6 @@ updateQuery=(query)=>{
      
     const {query, allbooks, stateOfSearch} = this.state;
 	const {update} = this.props;
-	console.log(allbooks);
   	return(
     <div className="seachBooks">
          <div className="search-books">
@@ -76,7 +67,7 @@ updateQuery=(query)=>{
 { stateOfSearch === 'search found' && <ol className="books-grid">
       
       	{allbooks.map((book)=>(  
-                <BookItem book={book} key={book.id} shelf={this.findShelf(book.id)} update={update}/>
+                <BookItem book={book} key={book.id} update={update}/>
                      
         ))}
 

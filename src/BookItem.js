@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+// import the API
+import * as BooksAPI from './BooksAPI';
 
 class BookItem extends Component{
   state={
@@ -15,7 +17,16 @@ class BookItem extends Component{
     }))
       
     }
+componentDidMount(){
 
+BooksAPI.get(this.props.book.id).then((book)=>{
+
+     this.setState(()=>({
+     shelf:book.shelf
+     }))
+    })
+
+}
 	componentDidUpdate(){
 	if(this.state.update){
     this.updateBook(this.state.book, this.state.shelf)
@@ -31,7 +42,9 @@ class BookItem extends Component{
     }
 
   render(){
-  const {book, shelf} = this.props;
+  const {book} = this.props;
+	const {shelf} = this.state;
+	
 	return(
     	<li>
                         <div className="book">
