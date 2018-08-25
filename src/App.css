@@ -102,7 +102,23 @@ body, .app {
 .search-books-results {
   padding: 80px 10px 20px;
 }
+p.search {
+    color: #646464;
+    text-align: center;
+    font-size: 30px;
+    margin: 110px 0 0 0;
+}
+p.result {
+    font-size: 15px;
+    text-align: center;
+    color: #646464;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+  	margin: 71px 0 0 0;
+}
 
+.red{
+color:red;}
 /* books grid */
 
 .books-grid {
@@ -166,9 +182,22 @@ body, .app {
 .book-cover {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   background: #eee;
+  background-size: 100% 100%;
 }
 .book-cover-title {
   padding: 20px 10px 0;
   text-align: center;
   font-size: 0.8em;
+}
+
+/*Notification*/
+.notifications {
+    background: green;
+    position: fixed;
+    width: 100%;
+    padding: 25px;
+    text-align: center;
+    color: white;
+  	z-index:1000;
+  	top:0
 }

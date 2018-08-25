@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 
+// import to check types
+import PropTypes from 'prop-types';
+
 // import link for routing
 import { Link } from 'react-router-dom';
 
 // import the API
 import * as BooksAPI from './BooksAPI';
 
+// import the Component
 import BookItem from './BookItem';
 
-class SearchBook extends Component {
+class SearchBook extends Component { 
+  
   
   state={
   	query:'',
@@ -16,66 +21,81 @@ class SearchBook extends Component {
     stateOfSearch:'not searching'
   }
 
-updateQuery=(query)=>{
+ updateQuery=(query)=>{
     this.setState((oldState)=>({
-     	query:query.trim(),
+     	query:query,
      }))
   if(query !== ''){	
-    BooksAPI.search(query,8)
+    BooksAPI.search(query)
   	.then((books)=>{
       let state;
+      let theBooks;
       if(books.constructor === Array){
       	state = 'search found';
+        theBooks = books;
       }
       else{
         state = 'not match';
+        theBooks = []
       }
+      
        this.setState((oldState)=>({
-   		allbooks:books,
+   		allbooks:theBooks,
          stateOfSearch: state
      }))
+       
 
      })}
   else{
+     
   this.setState((oldState)=>({
    		allbooks:[],
     	stateOfSearch:'not searching'
      }))
+     
   }
+   
 
  }
+  static propTypes = {
+      update: PropTypes.func.isRequired,
+    }
 
-  render(){
-     
+  render(){  
     const {query, allbooks, stateOfSearch} = this.state;
+
 	const {update} = this.props;
   	return(
-    <div className="seachBooks">
+    <div className="seachBooks"  ref="myRef">
          <div className="search-books">
          <div className="search-books-bar">
               <Link to='/' className="close-search">Close</Link>
               <div className="search-books-input-wrapper">
                 <input type="text" placeholder="Search by title or author"value={query} 
 					onChange={(event)=>this.updateQuery(event.target.value)} />
+			</div>
+         </div>
+            
+		</div>
+		<div>
+ 		{ stateOfSearch === 'search found' && query !== '' ? 
+         <div>
+         <p className="result">There are <b>{allbooks.length}</b> results with the word "{query}"</p>
 
-              </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
-            </div>
-</div>
-{ stateOfSearch === 'search found' && <ol className="books-grid">
+ 		<ol className="books-grid">
       
       	{allbooks.map((book)=>(  
-                <BookItem book={book} key={book.id} update={update}/>
+                <BookItem  book={book} key={book.id} update={update}/>
                      
         ))}
 
-                    </ol>
-}
+                    </ol></div> : ''}</div>
+
      
-{stateOfSearch ==='not searching' && <p>Type a criteria</p>}
-{stateOfSearch ==='not match' && <p>No match</p>}
+		{stateOfSearch ==='not searching' && 
+         <p className="search">Add some text on the search bar to find new books</p>}
+		{stateOfSearch ==='not match' && 
+         <p className="result">You dont have <span className="red">any</span> match with the word: {query}</p>}
      
      </div>
 
