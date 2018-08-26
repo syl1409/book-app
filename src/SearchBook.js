@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {DebounceInput} from 'react-debounce-input';
 
 // import to check types
 import PropTypes from 'prop-types';
@@ -71,7 +72,11 @@ class SearchBook extends Component {
          <div className="search-books-bar">
               <Link to='/' className="close-search">Close</Link>
               <div className="search-books-input-wrapper">
-                <input type="text" placeholder="Search by title or author"value={query} 
+                <DebounceInput 
+      				minLength={1} 
+					debounceTimeout={500} 
+					placeholder="Search by title or author" 
+					value={query} 
 					onChange={(event)=>this.updateQuery(event.target.value)} />
 			</div>
          </div>

@@ -8,8 +8,8 @@ import * as BooksAPI from './BooksAPI';
 import Shelf from './Shelf';
 import SearchBook from './SearchBook';
 
-// import Route and link for routing
-import { Route, Link } from 'react-router-dom';
+// import Route, Switch and link for routing
+import { Route, Link, Switch } from 'react-router-dom';
 
 
 class BooksApp extends React.Component {
@@ -53,9 +53,11 @@ class BooksApp extends React.Component {
 	const {books, notification, notificationMessage} = this.state;
     return (
       <div className="app">
-      	{/*Route for home or shelfs*/}
+      	{/*Notification*/}
 		{notification &&<div className="notifications">{notificationMessage}</div>}
-      	<Route exact path='/' render={()=>( 
+		<Switch>
+			{/*Route for home or shelfs*/}
+  			<Route exact path="/" render={()=>( 
      		<div className="list-books">
             	<div className="list-books-title">
               		<h1>MyReads</h1>
@@ -81,11 +83,15 @@ class BooksApp extends React.Component {
             </div>
           </div>
     	)}/>
-		{/*Route for Search*/}
-		<Route exact path='/search' render={()=>( 
-        <SearchBook update={this.updateBook}/>
+			{/*Route for Search*/}
+  			<Route path="/search" render={()=>( 
+        		<SearchBook update={this.updateBook}/>  )}/>
+		</Switch>
+      	
+		
+	
         
-        )}/>
+      
 
       </div>
     )

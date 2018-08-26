@@ -15,7 +15,6 @@ class BookItem extends Component{
   }
 
 	handleChange=(value, book)=>{
-    
     this.setState((oldState)=>({
     	shelf:value,
       	book:book,
@@ -54,7 +53,7 @@ static propTypes = {
 	const {shelf} = this.state;
 	
 	return(
-    	<li>
+    	<li ref="myRef">
         	<div className="book">
 				<div className="book-top">
                 	<div className="book-cover" 
